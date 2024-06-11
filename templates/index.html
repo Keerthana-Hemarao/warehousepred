@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warehouse Prediction</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background: url('https://www.marineinsight.com/wp-content/uploads/2021/09/Functions-of-a-Warehouse-%E2%80%93-A-Detailed-Guide.png') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            overflow: auto; /* Enable scrolling */
+        }
+        .container {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px #000;
+            max-width: 800px;
+            margin: auto; /* Center container */
+            margin-top: 50px; /* Add some top margin */
+        }
+        h1 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        label {
+            font-weight: bold;
+        }
+        .btn-custom {
+            background-color: #0072ff;
+            border-color: #0072ff;
+            color: white;
+            width: 100%;
+            margin-top: 20px;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        .row > .col {
+            padding-right: 5px;
+            padding-left: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Warehouse Prediction</h1>
+        <form action="/predict" method="post">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="Creation_Date">Creation Date:</label>
+                        <input type="date" class="form-control" name="Creation_Date" id="Creation_Date" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="Order_Type">Order Type:</label>
+                        <input type="text" class="form-control" name="Order_Type" id="Order_Type" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="Service_Type">Service Type:</label>
+                        <input type="text" class="form-control" name="Service_Type" id="Service_Type" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="Volume_ft3">Volume (ft3):</label>
+                        <input type="number" step="0.01" class="form-control" name="Volume_ft3" id="Volume_ft3" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="Weight_Lbs">Weight (Lbs):</label>
+                        <input type="number" step="0.01" class="form-control" name="Weight_Lbs" id="Weight_Lbs" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="Sales_Value">Sales Value ($):</label>
+                        <input type="number" step="0.01" class="form-control" name="Sales_Value" id="Sales_Value" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="Nr_Lines">Nr Lines:</label>
+                        <input type="number" step="0.01" class="form-control" name="Nr_Lines" id="Nr_Lines" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="Distance_WH01">Distance WH01:</label>
+                        <input type="number" step="0.01" class="form-control" name="Distance_WH01" id="Distance_WH01" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="Distance_WH02">Distance WH02:</label>
+                        <input type="number" step="0.01" class="form-control" name="Distance_WH02" id="Distance_WH02" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="Parameter_1_WHS_Utilization">Parameter 1 WHS Utilization:</label>
+                        <input type="number" step="0.01" class="form-control" name="Parameter_1_WHS_Utilization" id="Parameter_1_WHS_Utilization" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="Parameter_1_Star_WHS_Utilization">Parameter 1* WHS Utilization:</label>
+                        <input type="number" step="0.01" class="form-control" name="Parameter_1_Star_WHS_Utilization" id="Parameter_1_Star_WHS_Utilization" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="Parameter_2_Sales_price">Parameter 2 Sales price:</label>
+                        <input type="number" step="0.01" class="form-control" name="Parameter_2_Sales_price" id="Parameter_2_Sales_price" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="Parameter_2_Star_Sales_price">Parameter 2* Sales price:</label>
+                        <input type="number" step="0.01" class="form-control" name="Parameter_2_Star_Sales_price" id="Parameter_2_Star_Sales_price" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="Parameter_3_LeadTime">Parameter 3 LeadTime:</label>
+                        <input type="number" step="0.01" class="form-control" name="Parameter_3_LeadTime" id="Parameter_3_LeadTime" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="Parameter_3_Star_LeadTime">Parameter 3* LeadTime:</label>
+                        <input type="number" step="0.01" class="form-control" name="Parameter_3_Star_LeadTime" id="Parameter_3_Star_LeadTime" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="Parameter_4_Carrier_Cost">Parameter 4 Carrier Cost:</label>
+                        <input type="number" step="0.01" class="form-control" name="Parameter_4_Carrier_Cost" id="Parameter_4_Carrier_Cost" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="Parameter_4_Star_Carrier_Cost">Parameter 4* Carrier Cost:</label>
+                        <input type="number" step="0.01" class="form-control" name="Parameter_4_Star_Carrier_Cost" id="Parameter_4_Star_Carrier_Cost" required>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-custom">Predict</button>
+                </div>
+            </div>
+        </form>
+
+        {% if prediction_text %}
+            <h2>{{ prediction_text }}</h2>
+        {% endif %}
+    </div>
+</body>
+</html>
+
