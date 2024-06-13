@@ -51,7 +51,7 @@ def predict():
     predicted_numeric = model.predict(input_df)
     predicted_label = target_encoder.inverse_transform(predicted_numeric)
 
-    return render_template('index.html', prediction_text=f'Predicted Final Result warehouse: {predicted_label[0]}')
+    return render_template('index.html', prediction_text=f'Predicted Final Result warehouse : {predicted_label[0]}')
 
 if __name__ == '__main__':
     app.run(debug=True)
